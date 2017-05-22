@@ -7,7 +7,12 @@ import sys
 # str3 = sys.argv[3]
 
 
-_REGEX = re.compile(r'''^(?:[v])?(?P<version>\d+\.\d+\.\d+){1}(?:-(?=\w+)|\.(?=\w+))?(?:(?P<pr>alpha|beta|rc|[abc]){1}(?:-(?=\d+)|\.(?=\d+))?(?P<prversion>\d+)?)?$''',re.VERBOSE)  
+_REGEX = re.compile(r'''
+	^(?:[v])?(?P<version>\d+\.\d+\.\d+){1}
+	(?:-(?=\w+)|\.(?=\w+))?
+	(?:(?P<pr>(?:0|[1-9A-Za-z-][0-9A-Za-z-]*)(\.(?:0|[1-9A-Za-z-][0-9A-Za-z-]*))*))?
+	(\+(?P<build>[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*
+	))?$''',re.VERBOSE)  
 
 # Private fuction to parse the version of the strings
 
@@ -65,7 +70,7 @@ def compareversions(string1, rule, string2):
 		string2_major = (string2[0].split('.'), string2[1], string2[2], )
 
 		# For comparing 2 versions with "~>" we need to match the major and 
-		# version mentioned in file (requirements.txt) should be less than the new version
+		# version mentioned in file (Ex: requirements.txt/Gemfile) should be less than the new version
 
 		return (string1_major[0][0] == string2_major[0][0] and string1 <= string2)
 	else:
