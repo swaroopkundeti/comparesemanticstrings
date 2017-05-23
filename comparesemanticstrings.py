@@ -26,7 +26,6 @@ def _parse(version):
     elif version[1] == 'c':
         version = (str(version[0]), 'rc', str(version[2]),)
 
-    # Disallow v0.0.0
     if version[0] == '0.0.0':
         raise exception("Not a valid version")
 
