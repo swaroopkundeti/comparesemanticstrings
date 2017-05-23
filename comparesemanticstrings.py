@@ -19,13 +19,6 @@ _REGEX = re.compile(r'''
 
 def _parse(version):
    
-    if version[1] == 'a':
-        version = (str(version[0]), 'alpha', str(version[2]), )	
-    elif version[1] == 'b':
-        version = (str(version[0]), 'beta', str(version[2]), )
-    elif version[1] == 'c':
-        version = (str(version[0]), 'rc', str(version[2]),)
-
     if version[0] == '0.0.0':
         raise exception("Not a valid version")
 
